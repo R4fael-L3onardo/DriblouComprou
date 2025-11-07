@@ -1,0 +1,133 @@
+/* =========
+   Design tokens
+   ========= */
+:root{
+  --bg: #f7f7fb;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --primary: #2563eb;
+  --primary-600: #1d4ed8;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --radius: 12px;
+  --shadow: 0 6px 20px rgba(0,0,0,.06);
+  --font: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji';
+}
+
+/* Dark automático (se o SO estiver em dark mode) */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0f172a;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --card: #0b1222;
+    --border: #1f2a44;
+    --primary: #60a5fa;
+    --primary-600: #3b82f6;
+    --shadow: 0 8px 24px rgba(0,0,0,.35);
+  }
+}
+
+/* =========
+   Base
+   ========= */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font: 16px/1.5 var(--font);
+}
+
+/* =========
+   Layout
+   ========= */
+.container{
+  max-width: 960px; margin: 32px auto; padding: 0 16px;
+}
+
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+/* Títulos e textos */
+h1{font-size: clamp(22px, 3.2vw, 30px); margin: 0 0 16px}
+h2{font-size: clamp(18px, 2.5vw, 24px); margin: 0 0 12px}
+.muted{color:var(--muted)}
+
+/* =========
+   Links & botões
+   ========= */
+a{color:var(--primary); text-decoration:none}
+a:hover{text-decoration:underline}
+
+.btn{
+  display:inline-block; border:1px solid var(--border);
+  background: var(--card); color:var(--text);
+  padding:10px 14px; border-radius:10px; cursor:pointer;
+  transition: transform .04s ease, background .2s ease, border-color .2s ease;
+}
+.btn:hover{transform: translateY(-1px)}
+.btn:active{transform: translateY(0)}
+.btn-primary{
+  background: var(--primary); color:#fff; border-color: transparent;
+}
+.btn-primary:hover{background: var(--primary-600)}
+.btn-danger{
+  background: var(--danger); color:#fff; border-color: transparent;
+}
+.btn-secondary{
+  background: var(--primary); color:#fff; border-color: transparent;
+}
+.btn-secondary:hover{
+  background: var(--primary-600);
+}
+
+/* =========
+   Formulários
+   ========= */
+.form-grid{display:grid; gap:12px}
+@media (min-width:640px){ .form-grid.cols-2{grid-template-columns:1fr 1fr} }
+
+label{display:block; font-weight:600; margin-bottom:6px}
+.input, .select, .textarea, input[type="file"]{
+  width:100%; padding:10px 12px; border-radius:10px;
+  border:1px solid var(--border); background:var(--card); color:var(--text);
+}
+.textarea{min-height:110px; resize:vertical}
+
+.form-actions{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+
+/* =========
+   Tabelas / listas
+   ========= */
+.table{width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden}
+.table th,.table td{padding:12px 14px; border-bottom:1px solid var(--border); text-align:left}
+.table th{background:rgba(0,0,0,.03)}
+.table tr:last-child td{border-bottom:none}
+
+.list{list-style:none; margin:0; padding:0}
+.list li{
+  background: var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:12px 14px; margin-bottom:10px;
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+}
+
+/* =========
+   Alerts / flashes
+   ========= */
+.alert{padding:12px 14px; border-radius:10px; margin: 10px 0; border:1px solid var(--border)}
+.alert-success{background: rgba(22,163,74,.12); border-color: rgba(22,163,74,.35)}
+.alert-danger{background: rgba(220,38,38,.12); border-color: rgba(220,38,38,.35)}
+
+/* =========
+   Utilitários
+   ========= */
+.center{display:flex; align-items:center; justify-content:center}
+.gap-8{gap:8px} .gap-12{gap:12px} .mt-16{margin-top:16px} .mb-16{margin-bottom:16px}
+.img-thumb{width:120px; height:120px; object-fit:cover; border-radius:10px; border:1px solid var(--border); background:#fff}

@@ -1,0 +1,52 @@
+<x-layouts.app>
+
+  <head>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  </head>
+
+  <body class="container">
+    <h1>Lista de Produtos Cadastrados</h1>
+
+    <p class="mb-16">
+      <a class="btn btn-primary" href="{{ route('produtos.create') }}">+ Novo produto</a>
+    </p>
+
+    @if ($produtos->isEmpty())
+    <p class="muted">Nenhum produto cadastrado.</p>
+    @else
+    <ul class="list">
+      @foreach ($produtos as $produto)
+      <li class="item">
+        #{{ $produto->id }} — {{ $produto->nome }}
+        — R$ {{ number_format($produto->preco, 2, ',', '.') }}
+        @if ($produto->imagem)
+        <img
+          src="{{ asset($produto->imagem) }}"
+          alt="Imagem de {{ $produto->nome }}"
+          width="64" height="64"
+          style="object-fit:cover; border-radius:8px; vertical-align:middle; margin-right:8px;">
+        @endif
+        
+        <span style="margin-left:8px;">
+          <a href="{{ route('produtos.show', $produto) }}" class="btn btn-secondary">Ver</a>
+          <a href="{{ route('produtos.edit', $produto) }}" class="btn btn-secondary">Editar</a>
+          <form action="{{ route('produtos.destroy', $produto) }}" method="POST" class="inline" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-nome="{{ $produto->nome }}">
+              Excluir
+            </button>
+          </form>
+        </span>
+
+      </li>
+      @endforeach
+    </ul>
+    @endif
+
+  </body>
+
+</x-layouts.app>
