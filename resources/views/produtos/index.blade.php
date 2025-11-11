@@ -17,7 +17,7 @@
     <ul class="list">
       @foreach ($produtos as $produto)
       <li class="item">
-        #{{ $produto->id }} — {{ $produto->nome }}
+        #{{ $produto->id }} — {{ $produto->nome }} — {{ $produto->categoria }}
         — R$ {{ number_format($produto->preco, 2, ',', '.') }}
         @if ($produto->imagem)
         <img
@@ -26,20 +26,23 @@
           width="64" height="64"
           style="object-fit:cover; border-radius:8px; vertical-align:middle; margin-right:8px;">
         @endif
-        
+
         <span style="margin-left:8px;">
           <a href="{{ route('produtos.show', $produto) }}" class="btn btn-secondary">Ver</a>
           <a href="{{ route('produtos.edit', $produto) }}" class="btn btn-secondary">Editar</a>
-          <form action="{{ route('produtos.destroy', $produto) }}" method="POST" class="inline" style="display:inline;">
+          <form action="{{ route('produtos.destroy', $produto) }}" method="POST" class="inline">
             @csrf
             @method('DELETE')
             <button
               type="button"
               class="btn btn-danger"
+              data-action="delete"
               data-nome="{{ $produto->nome }}">
               Excluir
             </button>
           </form>
+
+
         </span>
 
       </li>

@@ -15,6 +15,10 @@
       <input type="text" name="nome" value="{{ old('nome', $produto->nome) }}" required class="input">
     </label><br>
 
+    <label>Categoria
+      <input type="text" name="categoria" value="{{ old('categoria') }}" required class="input">
+    </label><br>
+
     <label>Preço:
       <input type="number" step="0.01" name="preco" value="{{ old('preco', $produto->preco) }}" required class="input">
     </label><br>

@@ -40,10 +40,16 @@
         <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
           <a href="{{ route('produtos.edit', $produto) }}" class="btn btn-primary">Editar</a>
 
-          <form action="{{ route('produtos.destroy', $produto) }}" method="POST" onsubmit="return confirm('Excluir {{ $produto->nome }}?')">
+          <form action="{{ route('produtos.destroy', $produto) }}" method="POST" class="inline">
             @csrf
             @method('DELETE')
-            <button class="btn btn-danger" type="submit">Excluir</button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-action="delete"
+              data-nome="{{ $produto->nome }}">
+              Excluir
+            </button>
           </form>
 
           <a href="{{ route('produtos.index') }}" class="btn">Voltar</a>

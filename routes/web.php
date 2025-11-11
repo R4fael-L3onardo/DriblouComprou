@@ -7,14 +7,17 @@ use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\ProdutoController; // Importa a classe ProdutoController (atalho pro namespace completo)
+use App\Models\Produto;
+use App\Http\Controllers\CategoriaController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/dashboard', function () {
+    $totalProdutos = \App\Models\Produto::where('created_by', \Illuminate\Support\Facades\Auth::id())->count();
+    return view('dashboard', compact('totalProdutos'));
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -40,7 +43,9 @@ Route::get('/produtos', function () {
 });
 
 Route::resource('produtos', ProdutoController::class)
-     ->only(['index','create','store','show','edit','update','destroy']);
+    ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
 
 
 Route::resource('produtos', ProdutoController::class)->middleware('auth');
+
+Route::resource('categorias', CategoriaController::class)->middleware('auth');

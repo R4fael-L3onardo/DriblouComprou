@@ -131,3 +131,9 @@ label{display:block; font-weight:600; margin-bottom:6px}
 .center{display:flex; align-items:center; justify-content:center}
 .gap-8{gap:8px} .gap-12{gap:12px} .mt-16{margin-top:16px} .mb-16{margin-bottom:16px}
 .img-thumb{width:120px; height:120px; object-fit:cover; border-radius:10px; border:1px solid var(--border); background:#fff}
+
+.card-bg-produtos{
+  background-image: url('/imagens/dashboard/borussia_dortmund.jpg');
+  background-size: cover;
+  background-position: center;
+}

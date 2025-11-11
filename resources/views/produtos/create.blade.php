@@ -16,6 +16,19 @@
             </label>
             <br>
 
+            <label>Categoria
+                <input type="text" name="categoria" value="{{ old('categoria') }}" required class="input" list="categorias">
+            </label>
+            <datalist id="categorias">
+                @foreach ($categorias as $cat)
+                    <option value="{{ $cat->nome }}"></option>
+                @endforeach
+            </datalist>
+            @error('categoria')
+                <div class="text-red-600 text-sm">{{ $message }}</div>
+            @enderror
+            <br>
+
             <label>Preço:
                 <input type="number" step="0.01" name="preco" value="{{ old('preco') }}" required class="input">
             </label>
