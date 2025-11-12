@@ -17,7 +17,7 @@
     <ul class="list">
       @foreach ($produtos as $produto)
       <li class="item">
-        #{{ $produto->id }} — {{ $produto->nome }} — {{ $produto->categoria }}
+        #{{ $produto->id }} — {{ $produto->nome }}
         — R$ {{ number_format($produto->preco, 2, ',', '.') }}
         @if ($produto->imagem)
         <img

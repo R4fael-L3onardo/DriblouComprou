@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 
 // Importa o model Categoria, que representa a tabela 'categorias' no banco de dados.
 use App\Models\Categoria;
+use Illuminate\Support\Facades\Auth; // <- importa o Auth
+
 
 // Importa a classe Request, que representa a requisição HTTP
 // (dados enviados via formulário, query string, arquivos, etc.).
@@ -51,7 +53,6 @@ class CategoriaController extends Controller
         // - Se houver erro, volta para o formulário com mensagens de erro automaticamente.
         $dadosValidados = $request->validate([
             'nome'      => ['required', 'string', 'max:255'], // 'nome' é obrigatório, texto, até 255 caracteres.
-            'descricao' => ['nullable', 'string'],            // 'descricao' é opcional, mas se vier deve ser texto.
         ]);
 
         $dadosValidados['created_by'] = Auth::id();
@@ -99,7 +100,6 @@ class CategoriaController extends Controller
         // As regras são iguais às do método store().
         $dadosValidados = $request->validate([
             'nome'      => ['required', 'string', 'max:255'],
-            'descricao' => ['nullable', 'string'],
         ]);
 
         // Atualiza a categoria existente no banco de dados com os dados validados.

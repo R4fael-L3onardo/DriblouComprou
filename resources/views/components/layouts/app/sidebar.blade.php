@@ -39,6 +39,28 @@
             </flux:navlist.item>
         </flux:navlist.group>
 
+        
+        <flux:navlist.group
+            heading="Categorias"
+            :expanded="request()->routeIs('categorias.*')"
+            class="grid">
+
+            <flux:navlist.item
+                icon="list-bullet"
+                :href="route('categorias.index')"
+                :current="request()->routeIs('categorias.index')"
+                wire:navigate>{{ __('Lista Categorias') }}
+            </flux:navlist.item>
+
+            <flux:navlist.item
+                icon="squares-plus"
+                :href="route('categorias.create')"
+                :current="request()->routeIs('categorias.create')"
+                wire:navigate>{{ __('Cadastrar categorias') }}
+            </flux:navlist.item>
+        </flux:navlist.group>
+
+
                 <flux:spacer />
 
                 <flux:navlist variant="outline">

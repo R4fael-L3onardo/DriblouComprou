@@ -138,10 +138,14 @@ class ProdutoController extends Controller
     {
         // Segurança: se o produto não pertence ao usuário logado, retorna erro 403 (proibido).
         // Compara o campo created_by do produto com o ID do usuário autenticado.
+        $produto->load(['categoria', 'user']);
         abort_if($produto->created_by !== Auth::id(), 403);
 
         // Retorna a view 'produtos.show', passando o produto para ser mostrado na tela.
         return view('produtos.show', compact('produto'));
+
+       
+
     }
 
     // Método que exibe o formulário de edição de um produto existente.

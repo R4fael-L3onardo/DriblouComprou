@@ -28,11 +28,17 @@
       </div>
 
       <div>
-        <h2 style="margin:0 0 8px 0;">{{ $produto->nome }}</h2>
+        <h2 style="margin:0 0 8px 0;">
+          {{ optional($produto->categoria)->nome ? $produto->categoria->nome . ' - ' : '' }}{{ $produto->nome }}
+        </h2>
 
         <p><strong>Preço:</strong> R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
         <p><strong>Tamanho:</strong> {{ $produto->tamanho }}</p>
         <p><strong>Estoque:</strong> {{ $produto->estoque }}</p>
+
+        {{-- NOVO: categoria do produto --}}
+        <p><strong>Categoria:</strong> {{ optional($produto->categoria)->nome ?? '—' }}</p>
+
         <p class="muted" style="margin-top:8px;">
           <strong>Cadastrado por:</strong> {{ optional($produto->user)->name ?? '—' }}
         </p>

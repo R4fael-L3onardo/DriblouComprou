@@ -49,3 +49,6 @@ Route::resource('produtos', ProdutoController::class)
 Route::resource('produtos', ProdutoController::class)->middleware('auth');
 
 Route::resource('categorias', CategoriaController::class)->middleware('auth');
+
+Route::resource('categorias', CategoriaController::class)
+    ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
