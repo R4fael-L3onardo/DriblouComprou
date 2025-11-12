@@ -17,15 +17,17 @@
     <ul class="list">
       @foreach ($produtos as $produto)
       <li class="item">
-        #{{ $produto->id }} — {{ $produto->nome }} — {{ $produto->categoria }}
+        #{{ $produto->id }} — {{ $produto->nome }} — Categoria: {{ $produto->categoria->nome ?? 'Sem categoria' }}
         — R$ {{ number_format($produto->preco, 2, ',', '.') }}
         @if ($produto->imagem)
-        <img
-          src="{{ asset($produto->imagem) }}"
-          alt="Imagem de {{ $produto->nome }}"
-          width="64" height="64"
-          style="object-fit:cover; border-radius:8px; vertical-align:middle; margin-right:8px;">
+          <div class="thumb">        {{-- ou .thumb-64 / .thumb-96 --}}
+            <img
+              src="{{ asset($produto->imagem) }}"
+              alt="Imagem de {{ $produto->nome }}"
+              loading="lazy">
+          </div>
         @endif
+
 
         <span style="margin-left:8px;">
           <a href="{{ route('produtos.show', $produto) }}" class="btn btn-secondary">Ver</a>

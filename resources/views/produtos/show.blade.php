@@ -30,6 +30,7 @@
       <div>
         <h2 style="margin:0 0 8px 0;">{{ $produto->nome }}</h2>
 
+        <p><strong>Categoria:</strong> {{ $produto->categoria->nome ?? 'Sem categoria' }}</p>
         <p><strong>Preço:</strong> R$ {{ number_format($produto->preco, 2, ',', '.') }}</p>
         <p><strong>Tamanho:</strong> {{ $produto->tamanho }}</p>
         <p><strong>Estoque:</strong> {{ $produto->estoque }}</p>
