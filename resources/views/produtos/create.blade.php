@@ -28,6 +28,7 @@
             </label>
             <br>
 
+
             <label>Preço:
                 <input type="number" step="0.01" name="preco" value="{{ old('preco') }}" required class="input">
             </label>

@@ -13,12 +13,18 @@
 
     <label>Nome:
       <input type="text" name="nome" value="{{ old('nome', $categoria->nome) }}" required class="input">
+<<<<<<< HEAD
+    </label><br>
+
+   
+=======
     </label>
     @error('nome')
       <div class="text-red-600 text-sm">{{ $message }}</div>
     @enderror
     <br>
 
+>>>>>>> 3323b219bf3508b631638ac144a80a9321fb9b49
     <button type="submit" class="btn btn-primary">Salvar</button>
     <a href="{{ route('categorias.index') }}" class="btn">Cancelar</a>
   </form>

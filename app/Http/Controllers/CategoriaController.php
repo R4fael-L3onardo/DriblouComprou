@@ -10,8 +10,18 @@ class CategoriaController extends Controller
 {
     public function index()
     {
-        $categorias = Categoria::orderBy('nome')->get();
+
+        //$categorias = Categoria::orderBy('nome')->get();
+        //return view('categorias.index', compact('categorias'));
+        // Paginação:
+        $categorias = Categoria::where('created_by', Auth::id())
+            ->orderBy('nome')
+            ->paginate(1)                
+            ->withQueryString();  
+        
+        
         return view('categorias.index', compact('categorias'));
+
     }
 
     public function create()
@@ -23,7 +33,6 @@ class CategoriaController extends Controller
     {
         $dadosValidados = $request->validate([
             'nome'      => ['required', 'string', 'max:255'],
-            'descricao' => ['nullable', 'string'],
         ]);
 
         $dadosValidados['created_by'] = Auth::id();

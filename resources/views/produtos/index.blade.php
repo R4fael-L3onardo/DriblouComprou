@@ -53,6 +53,19 @@
       </li>
       @endforeach
     </ul>
+    
+        @if ($produtos->hasPages())
+            <div class="pagination">
+                <div class="pagination-info">
+                    {{ $produtos->firstItem() }}–{{ $produtos->lastItem() }}
+                    de {{ $produtos->total() }}
+                </div>
+
+                <div class="pagination-links">
+                    {{ $produtos->links() }}
+                </div>
+            </div>
+        @endif
     @endif
 
   </body>

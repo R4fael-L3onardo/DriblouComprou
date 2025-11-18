@@ -41,6 +41,18 @@
           </li>
         @endforeach
       </ul>
+      @if ($categorias->hasPages())
+                <div class="pagination">
+                    <div class="pagination-info">
+                        {{ $categorias->firstItem() }}–{{ $categorias->lastItem() }}
+                        de {{ $categorias->total() }}
+                    </div>
+
+                    <div class="pagination-links">
+                        {{ $categorias->withQueryString()->links() }}
+                    </div>
+                </div>
+        @endif
     @endif
   </body>
 
