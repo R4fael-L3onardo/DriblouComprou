@@ -1,27 +1,30 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Features;
+
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
-use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Features;
-use App\Http\Controllers\ProdutoController; // Importa a classe ProdutoController (atalho pro namespace completo)
-use App\Models\Produto;
+
+use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PedidoController;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    $totalProdutos = \App\Models\Produto::where('created_by', \Illuminate\Support\Facades\Auth::id())->count();
-    return view('dashboard', compact('totalProdutos'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+/**
+ * Rotas autenticadas (inclui dashboard, settings e CRUDs)
+ */
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard -> usa ProdutoController@dashboard para enviar $totalProdutos e $totalCategorias
+    Route::get('/dashboard', [ProdutoController::class, 'dashboard'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
+    // Settings
     Route::redirect('settings', 'settings/profile');
-
     Route::get('settings/profile', Profile::class)->name('profile.edit');
     Route::get('settings/password', Password::class)->name('user-password.edit');
     Route::get('settings/appearance', Appearance::class)->name('appearance.edit');
@@ -30,25 +33,30 @@ Route::middleware(['auth'])->group(function () {
         ->middleware(
             when(
                 Features::canManageTwoFactorAuthentication()
-                    && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
+                && Features::optionEnabled(Features::twoFactorAuthentication(), 'confirmPassword'),
                 ['password.confirm'],
                 [],
             ),
         )
         ->name('two-factor.show');
+
+    // CRUDs
+    Route::resource('produtos', ProdutoController::class);
+    Route::resource('categorias', CategoriaController::class);
+
+    Route::middleware(['auth','verified'])->group(function () {
+    // CRUD principal de pedidos (index = carrinho, create = comprar, store = adicionar)
+    Route::resource('pedidos', PedidoController::class)->only(['index','create','store']);
+
+    // Ações sobre os itens do pedido
+    Route::put('itens-pedidos/{item}',    [PedidoController::class, 'updateItem'])->name('pedidos.itens.update');
+    Route::delete('itens-pedidos/{item}', [PedidoController::class, 'destroyItem'])->name('pedidos.itens.destroy');
+
+    // Finalizar pedido
+    Route::post('pedidos/{pedido}/finalizar', [PedidoController::class, 'finalizar'])->name('pedidos.finalizar');
+
+    Route::get('pedidos/produto/{produto}', [PedidoController::class, 'showProduto'])
+         ->middleware(['auth'])
+         ->name('pedidos.produto.show');
 });
-
-Route::get('/produtos', function () {
-    return view('produtos.index'); // Aponta para resources/views/produtos/index.blade.php
 });
-
-Route::resource('produtos', ProdutoController::class)
-    ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
-
-
-Route::resource('produtos', ProdutoController::class)->middleware('auth');
-
-Route::resource('categorias', CategoriaController::class)->middleware('auth');
-
-Route::resource('categorias', CategoriaController::class)
-    ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);

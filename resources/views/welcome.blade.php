@@ -59,7 +59,7 @@
                     <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">Sua loja de artigos esportivos. <br></p>
                     <ul class="flex gap-3 text-sm leading-normal">
                         <li>
-                            <a href="https://cloud.laravel.com" target="_blank" class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                            <a href="{{ route('pedidos.create') }}" class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                                 Compre Já
                             </a>
                         </li>
@@ -71,7 +71,7 @@
                 <!-- camada A -->
                 <img class="rotator-slide absolute inset-0 size-full"
                     style="object-fit:cover; transition:opacity .7s ease; opacity:1"
-                    src="{{ asset('imagens/welcome/son.jpg') }}" alt="">
+                    src="{{ asset('imagens/welcome/ronaldinho.jpg') }}" alt="">
 
                 <!-- camada B -->
                 <img class="rotator-slide absolute inset-0 size-full"
@@ -83,9 +83,9 @@
 
                 <script>
                 const images = [
-                    "{{ asset('imagens/welcome/son.jpg') }}",
+                    "{{ asset('imagens/welcome/ronaldinho.jpg') }}",
                     "{{ asset('imagens/welcome/jaqueta_manchester_united.jpg') }}", 
-                    "{{ asset('imagens/welcome/beckham.jpg') }}",          
+                    "{{ asset('imagens/welcome/villa_torres.jpg') }}",          
                 ];
 
                 // pré-carrega

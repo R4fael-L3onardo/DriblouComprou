@@ -16,17 +16,16 @@
             </label>
             <br>
 
-            <label>Categoria
-            <input type="text" name="categoria" value="{{ old('categoria') }}" required class="input" list="categorias">
-            </label>
-            <datalist id="categorias">
+            <label>Categoria:
+            <select name="categoria_id" class="select" required>
+                <option value="">-- Selecione uma categoria --</option>
                 @foreach ($categorias as $cat)
-                    <option value="{{ $cat->nome }}"></option>
+                    <option value="{{ $cat->id }}" {{ old('categoria_id', $produto->categoria_id ?? null) == $cat->id ? 'selected' : '' }}>
+                        {{ $cat->nome }}
+                    </option>
                 @endforeach
-            </datalist>
-            @error('categoria')
-                <div class="text-red-600 text-sm">{{ $message }}</div>
-            @enderror
+            </select>
+            </label>
             <br>
 
 

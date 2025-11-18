@@ -15,8 +15,15 @@
       <input type="text" name="nome" value="{{ old('nome', $produto->nome) }}" required class="input">
     </label><br>
 
-    <label>Categoria
-      <input type="text" name="categoria" value="{{ old('categoria') }}" required class="input">
+    <label>Categoria:
+    <select name="categoria_id" class="select" required>
+      <option value="">-- Selecione uma categoria --</option>
+      @foreach ($categorias as $cat)
+        <option value="{{ $cat->id }}" {{ old('categoria_id', $produto->categoria_id ?? null) == $cat->id ? 'selected' : '' }}>
+          {{ $cat->nome }}
+        </option>
+      @endforeach
+    </select>
     </label><br>
 
     <label>Preço:

@@ -7,9 +7,12 @@
   <body class="container">
     <h1>Lista de Produtos Cadastrados</h1>
 
-    <p class="mb-16">
-      <a class="btn btn-primary" href="{{ route('produtos.create') }}">+ Novo produto</a>
-    </p>
+    <div class="mt-16 row-right">
+    <a href="{{ route('produtos.create') }}" class="btn btn-primary btn-icon">
+        <flux:icon name="plus"/>
+        Cadastrar Produto
+    </a>
+    </div><br>
 
     @if ($produtos->isEmpty())
     <p class="muted">Nenhum produto cadastrado.</p>
@@ -17,15 +20,17 @@
     <ul class="list">
       @foreach ($produtos as $produto)
       <li class="item">
-        #{{ $produto->id }} — {{ $produto->nome }}
+        #{{ $produto->id }} — {{ $produto->nome }} — Categoria: {{ $produto->categoria->nome ?? 'Sem categoria' }}
         — R$ {{ number_format($produto->preco, 2, ',', '.') }}
         @if ($produto->imagem)
-        <img
-          src="{{ asset($produto->imagem) }}"
-          alt="Imagem de {{ $produto->nome }}"
-          width="64" height="64"
-          style="object-fit:cover; border-radius:8px; vertical-align:middle; margin-right:8px;">
+          <div class="thumb">        {{-- ou .thumb-64 / .thumb-96 --}}
+            <img
+              src="{{ asset($produto->imagem) }}"
+              alt="Imagem de {{ $produto->nome }}"
+              loading="lazy">
+          </div>
         @endif
+
 
         <span style="margin-left:8px;">
           <a href="{{ route('produtos.show', $produto) }}" class="btn btn-secondary">Ver</a>
