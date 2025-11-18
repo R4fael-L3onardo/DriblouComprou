@@ -15,9 +15,15 @@ class ProdutoController extends Controller
     public function index()
     {
         // Lista só os produtos do usuário logado, já trazendo a categoria
-        $produtos = Produto::where('created_by', Auth::id())
-            ->with(['user', 'categoria'])
-            ->get();
+        //$produtos = Produto::where('created_by', Auth::id())
+         //   ->with(['user', 'categoria'])
+         //   ->get();
+
+          $produtos = Produto::where('created_by', Auth::id())
+            ->with('categoria')
+            ->orderByDesc('id')
+            ->paginate(1)                
+            ->withQueryString(); 
 
         return view('produtos.index', compact('produtos'));
     }
