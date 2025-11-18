@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use App\Models\Produto;
 use App\Models\Categoria;
+use App\Models\Pedido;
 
 class ProdutoController extends Controller
 {
@@ -144,14 +145,22 @@ class ProdutoController extends Controller
 
     public function dashboard()
     {
-        $totalProdutos   = Produto::where('created_by', Auth::id())->count();
+        $userId = Auth::id();
 
-        // Se NÃO controla autoria em categorias:
-        $totalCategorias = Categoria::count();
+        // Pedido aberto do usuário
+        $pedidoAberto = Pedido::where('created_by', $userId)
+            ->where('status', 'aberto')
+            ->first();
 
-        // Se você controla autoria (opcional, escolha um dos dois):
-        // $totalCategorias = Categoria::where('created_by', Auth::id())->count();
+        // Total de itens no carrinho (soma das quantidades)
+        $totalPedidos = $pedidoAberto
+            ? (int) $pedidoAberto->itens()->sum('quantidade')
+            : 0;
 
-        return view('dashboard', compact('totalProdutos', 'totalCategorias'));
+        // Outros contadores
+        $totalProdutos   = Produto::where('created_by', $userId)->count();
+        $totalCategorias = Categoria::where('created_by', $userId)->count(); // se categorias têm autoria
+
+        return view('dashboard', compact('totalPedidos', 'totalProdutos', 'totalCategorias'));
     }
 }

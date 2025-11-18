@@ -10,6 +10,7 @@ use App\Livewire\Settings\TwoFactor;
 
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PedidoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,4 +43,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // CRUDs
     Route::resource('produtos', ProdutoController::class);
     Route::resource('categorias', CategoriaController::class);
+
+    Route::middleware(['auth','verified'])->group(function () {
+    // CRUD principal de pedidos (index = carrinho, create = comprar, store = adicionar)
+    Route::resource('pedidos', PedidoController::class)->only(['index','create','store']);
+
+    // Ações sobre os itens do pedido
+    Route::put('itens-pedidos/{item}',    [PedidoController::class, 'updateItem'])->name('pedidos.itens.update');
+    Route::delete('itens-pedidos/{item}', [PedidoController::class, 'destroyItem'])->name('pedidos.itens.destroy');
+
+    // Finalizar pedido
+    Route::post('pedidos/{pedido}/finalizar', [PedidoController::class, 'finalizar'])->name('pedidos.finalizar');
+
+    Route::get('pedidos/produto/{produto}', [PedidoController::class, 'showProduto'])
+         ->middleware(['auth'])
+         ->name('pedidos.produto.show');
+});
 });

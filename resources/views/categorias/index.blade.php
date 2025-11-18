@@ -7,9 +7,12 @@
   <body class="container">
     <h1>Lista de Categorias Cadastradas</h1>
 
-    <p class="mb-16">
-      <a class="btn btn-primary" href="{{ route('categorias.create') }}">+ Nova categoria</a>
-    </p>
+    <div class="mt-16 row-right">
+    <a href="{{ route('categorias.create') }}" class="btn btn-primary btn-icon">
+        <flux:icon name="plus"/>
+        Cadastrar Categoria
+    </a>
+    </div><br>
 
     @if ($categorias->isEmpty())
       <p class="muted">Nenhuma categoria cadastrada.</p>

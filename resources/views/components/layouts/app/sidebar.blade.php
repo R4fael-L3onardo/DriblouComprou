@@ -20,22 +20,42 @@
         </flux:navlist>
 
         <flux:navlist.group
-            heading="Produtos"
-            :expanded="request()->routeIs('produtos.*')"
+            heading="Pedidos"
+            :expanded="request()->routeIs('pedidos.*')"
             class="grid">
 
             <flux:navlist.item
-                icon="list-bullet"
-                :href="route('produtos.index')"
+                icon="shopping-bag"
+                :href="route('pedidos.create')"
                 :current="request()->routeIs('produtos.index')"
-                wire:navigate>{{ __('Lista Produtos') }}
+                wire:navigate>{{ __('Comprar Produtos') }}
             </flux:navlist.item>
+
+            <flux:navlist.item
+                icon="shopping-cart"
+                :href="route('pedidos.index')"
+                :current="request()->routeIs('produtos.create')"
+                wire:navigate>{{ __('Carrinho') }}
+            </flux:navlist.item>
+        </flux:navlist.group>
+
+        <flux:navlist.group
+            heading="Produtos"
+            :expanded="request()->routeIs('produtos.*')"
+            class="grid">
 
             <flux:navlist.item
                 icon="squares-plus"
                 :href="route('produtos.create')"
                 :current="request()->routeIs('produtos.create')"
                 wire:navigate>{{ __('Cadastrar Produtos') }}
+            </flux:navlist.item>
+
+            <flux:navlist.item
+                icon="list-bullet"
+                :href="route('produtos.index')"
+                :current="request()->routeIs('produtos.index')"
+                wire:navigate>{{ __('Lista Produtos') }}
             </flux:navlist.item>
         </flux:navlist.group>
 
@@ -45,17 +65,17 @@
             class="grid">
 
             <flux:navlist.item
-                icon="list-bullet"
-                :href="route('categorias.index')"
-                :current="request()->routeIs('categorias.index')"
-                wire:navigate>{{ __('Lista Categorias') }}
-            </flux:navlist.item>
-
-            <flux:navlist.item
                 icon="squares-plus"
                 :href="route('categorias.create')"
                 :current="request()->routeIs('categorias.create')"
                 wire:navigate>{{ __('Cadastrar Categorias') }}
+            </flux:navlist.item>
+
+            <flux:navlist.item
+                icon="list-bullet"
+                :href="route('categorias.index')"
+                :current="request()->routeIs('categorias.index')"
+                wire:navigate>{{ __('Lista Categorias') }}
             </flux:navlist.item>
         </flux:navlist.group>
 
