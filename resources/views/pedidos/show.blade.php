@@ -1,4 +1,3 @@
-{{-- resources/views/pedidos/show.blade.php --}}
 <x-layouts.app :title="'Detalhes | ' . $produto->nome">
   <head>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">

@@ -69,9 +69,11 @@
         <div class="card cart-summary">
           <div><strong>Total:</strong></div>
           <div style="font-size:1.25rem"><strong>R$ {{ number_format($total, 2, ',', '.') }}</strong></div>
-          {{-- <form action="{{ route('pedidos.show', $pedido) }}" method="POST"> --}}
-            @csrf
-            <button type="submit" class="btn btn-primary">Finalizar Pedido</button>
+          <form action="{{ route('pedidos.finalizar', $pedido) }}" method="POST">
+              @csrf
+              <button type="submit" class="btn btn-primary">
+                  Finalizar Pedido
+              </button>
           </form>
         </div>
 

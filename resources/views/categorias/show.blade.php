@@ -1,4 +1,3 @@
-{{-- resources/views/categorias/show.blade.php --}}
 <x-layouts.app>
 
   <head>
